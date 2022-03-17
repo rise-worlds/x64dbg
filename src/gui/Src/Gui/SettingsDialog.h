@@ -117,6 +117,7 @@ private slots:
     void on_chkQueryProcessCookie_toggled(bool checked);
     void on_chkQueryWorkingSet_toggled(bool checked);
     void on_chkTransparentExceptionStepping_toggled(bool checked);
+    void on_chkSkipSystemModuleInStep_toggled(bool checked);
 
 private:
     //enums
@@ -247,6 +248,7 @@ private:
         bool miscQueryProcessCookie;
         bool miscQueryWorkingSet;
         bool miscTransparentExceptionStepping;
+        bool miscSkipSystemModuleInStep;
     };
 
     //variables

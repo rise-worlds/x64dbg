@@ -88,6 +88,7 @@ bool bNoWow64SingleStepWorkaround = false;
 bool bTraceBrowserNeedsUpdate = false;
 bool bForceLoadSymbols = false;
 bool bNewStringAlgorithm = false;
+bool bSkipSystemModuleInStep = false;
 duint DbgEvents = 0;
 duint maxSkipExceptionCount = 0;
 HANDLE mProcHandle;
@@ -3023,6 +3024,24 @@ void StepIntoWow64(LPVOID traceCallBack)
     }
     else
     {
+        if (bSkipSystemModuleInStep)
+        {
+            auto cip = GetContextDataEx(hActiveThread, UE_CIP);
+            unsigned char data[MAX_DISASM_BUFFER];
+            memset(data, 0x90, sizeof(data));
+            MemRead(cip, data, sizeof(data));
+            Zydis cp;
+            if (cp.Disassemble(cip, data) && (cp.IsCall() || cp.IsJump()))
+            {
+                auto pModInfo = ModInfoFromAddr(cp.Address());
+                if (pModInfo && pModInfo->party != mod_user)
+                {
+                    StepOverWrapper(traceCallBack);
+                    return;
+                }
+            }
+        }
+
         StepInto(traceCallBack);
     }
 }

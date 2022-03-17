@@ -1031,6 +1031,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="chkSkipSystemModuleInStep">
+         <property name="text">
+          <string>Skip System Module in Step</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacerMisc">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

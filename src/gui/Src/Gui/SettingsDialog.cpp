@@ -383,12 +383,14 @@ void SettingsDialog::LoadSettings()
     GetSettingBool("Misc", "QueryProcessCookie", &settings.miscQueryProcessCookie);
     GetSettingBool("Misc", "QueryWorkingSet", &settings.miscQueryWorkingSet);
     GetSettingBool("Misc", "TransparentExceptionStepping", &settings.miscTransparentExceptionStepping);
+    GetSettingBool("Misc", "SkipSystemModuleInStep", &settings.miscSkipSystemModuleInStep);
     GetSettingBool("Misc", "NoSeasons", &settings.guiHideSeasonalIcons);
     ui->chkUtf16LogRedirect->setChecked(settings.miscUtf16LogRedirect);
     ui->chkUseLocalHelpFile->setChecked(settings.miscUseLocalHelpFile);
     ui->chkQueryProcessCookie->setChecked(settings.miscQueryProcessCookie);
     ui->chkQueryWorkingSet->setChecked(settings.miscQueryWorkingSet);
     ui->chkTransparentExceptionStepping->setChecked(settings.miscTransparentExceptionStepping);
+    ui->chkSkipSystemModuleInStep->setChecked(settings.miscSkipSystemModuleInStep);
     ui->chkHideSeasonalIcons->setChecked(settings.guiHideSeasonalIcons);
     ui->chkHideSeasonalIcons->setVisible(isSeasonal());
 }
@@ -508,6 +510,7 @@ void SettingsDialog::SaveSettings()
     BridgeSettingSetUint("Misc", "QueryProcessCookie", settings.miscQueryProcessCookie);
     BridgeSettingSetUint("Misc", "QueryWorkingSet", settings.miscQueryWorkingSet);
     BridgeSettingSetUint("Misc", "TransparentExceptionStepping", settings.miscTransparentExceptionStepping);
+    BridgeSettingSetUint("Misc", "SkipSystemModuleInStep", settings.miscSkipSystemModuleInStep);
     BridgeSettingSetUint("Misc", "NoSeasons", settings.guiHideSeasonalIcons);
 
     BridgeSettingFlush();
@@ -1171,4 +1174,9 @@ void SettingsDialog::on_chkQueryWorkingSet_toggled(bool checked)
 void SettingsDialog::on_chkTransparentExceptionStepping_toggled(bool checked)
 {
     settings.miscTransparentExceptionStepping = checked;
+}
+
+void SettingsDialog::on_chkSkipSystemModuleInStep_toggled(bool checked)
+{
+    settings.miscSkipSystemModuleInStep = checked;
 }
